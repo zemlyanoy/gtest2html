@@ -111,7 +111,7 @@
 			<b><xsl:value-of select="count(testsuite)"/></b> test suites, 
 			<b><xsl:value-of select="@failures"/></b> test cases failed,
 			<b><xsl:value-of select="count(testsuite/testcase[@status='notrun'])"/></b> test cases skipped.
-			Execution time <b><xsl:value-of select="@time"/></b>
+			General execution time: <b><xsl:value-of select="@time"/></b>
 		</p>
 		<xsl:apply-templates/>
 	</xsl:template>
