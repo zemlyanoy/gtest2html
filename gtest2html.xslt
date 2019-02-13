@@ -119,7 +119,7 @@
 	<xsl:template match="testsuite">
 		<h2>Test Suite: <xsl:value-of select="@name"/></h2>
 		<table class="bordered">
-			<tr><th style="width:30%">Test Cases (run: <xsl:value-of select="@tests"/> / <!-- skipped: <xsl:value-of select="@skipped"/> / --> skipped: <xsl:value-of select="@disabled"/> / failed: <xsl:value-of select="@failures"/>) </th>
+			<tr><th style="width:30%">Test Cases (run: <xsl:value-of select="@tests"/> / skipped: <xsl:value-of select="@disabled"/> / failed: <xsl:value-of select="@failures"/>) </th>
 				<th>Message</th>
 				<th style="width:1%">Result</th>
 			</tr>
