@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xsl:stylesheet[
+  <!ENTITY nbsp "&#160;">
+]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:param name="JOB_NAME" />
 	<xsl:output method="html" version="4.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/">
 		<html>
 		<head>
-			<title>General Test Report</title>
+			<title>General Test Report: <xsl:value-of select="$JOB_NAME"/></title>
 			<style type="text/css">
 				td#passed {
 					color: green;
@@ -15,8 +19,17 @@
 					font-weight: bold;
 				}
 				td#skipped {
-				color: orange;
-				font-weight: bold;
+					color: orange;
+					font-weight: bold;
+				}
+				b#passrate {
+					color: green;
+				}
+				b#lowrisk {
+					color: orange;
+				}
+				b#critical {
+					color: red;
 				}
 				body {
 					width: 80%;
@@ -101,17 +114,25 @@
 			<xsl:apply-templates/>
 		</body>
 		</html>
-
 	</xsl:template>
 
 	<xsl:template match="testsuites">
-		<h1>General Test Report <xsl:value-of select="@timestamp"/></h1>
+		<xsl:variable name="skipped" select="count(testsuite/testcase[@status='notrun'])"/>
+		<xsl:variable name="testsuite" select="count(testsuite)"/>
+		<xsl:variable name="successrate" select="format-number((@tests - ($skipped + @failures)) div @tests*100,'##0.00')"/>
+		
+		<h1>General Test Report: <xsl:value-of select="$JOB_NAME"/></h1>
 		<p>
 			Executed <b><xsl:value-of select="@tests"/></b> test cases in
-			<b><xsl:value-of select="count(testsuite)"/></b> test suites, 
+			<b><xsl:value-of select="$testsuite"/></b> test suites, 
 			<b><xsl:value-of select="@failures"/></b> test cases failed,
-			<b><xsl:value-of select="count(testsuite/testcase[@status='notrun'])"/></b> test cases skipped.
-			General execution time: <b><xsl:value-of select="@time"/></b>
+			<b><xsl:value-of select="$skipped"/></b> test cases skipped.
+			General Execution time <b><xsl:value-of select="@time"/></b>, 
+			Success Rate: <xsl:choose>
+				<xsl:when test="$successrate &gt; 90"><b id="passrate"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="passrate">OK</b></xsl:when>
+				<xsl:when test="$successrate &gt; 70"><b id="lowrisk"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="lowrisk">Low Risk</b></xsl:when>
+				<xsl:otherwise><b id="critical"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="critical">CRITICAL</b></xsl:otherwise>
+			</xsl:choose>
 		</p>
 		<xsl:apply-templates/>
 	</xsl:template>
