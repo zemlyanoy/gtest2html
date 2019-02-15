@@ -4,6 +4,7 @@
 ]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:param name="JOB_NAME" />
+	<xsl:param name="BUILD_NUMBER" />
 	<xsl:output method="html" version="4.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/">
 		<html>
@@ -121,7 +122,7 @@
 		<xsl:variable name="testsuite" select="count(testsuite)"/>
 		<xsl:variable name="successrate" select="format-number((@tests - ($skipped + @failures)) div @tests*100,'##0.00')"/>
 		
-		<h1>General Test Report: <xsl:value-of select="$JOB_NAME"/></h1>
+		<h1>General Test Report: <xsl:value-of select="$JOB_NAME"/> | build&nbsp;#<xsl:value-of select="$BUILD_NUMBER"/></h1>
 		<p>
 			Executed <b><xsl:value-of select="@tests"/></b> test cases in
 			<b><xsl:value-of select="$testsuite"/></b> test suites, 
