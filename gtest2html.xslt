@@ -149,7 +149,7 @@
 			<tr>
 				<td><xsl:value-of select="@name"/></td> 
 				<xsl:choose> 
-				<xsl:when test="*">
+				<xsl:when test="failure[@message]">
  					<td id="failed">
 							<xsl:for-each select="failure">
 										<xsl:if test="@message">
