@@ -139,9 +139,9 @@
 	</xsl:template>
 
 	<xsl:template match="testsuite">
-		<h2>Test Suite: <xsl:value-of select="@name"/></h2>
+		<h2>Test Suite: <xsl:choose><xsl:when test="@name"><xsl:value-of select="@name"/></xsl:when><xsl:otherwise><xsl:value-of select="testcase/@classname"/></xsl:otherwise></xsl:choose></h2>
 		<table class="bordered">
-			<tr><th style="width:30%">Test Cases (run: <xsl:value-of select="@tests"/> / skipped: <xsl:value-of select="@disabled"/> / failed: <xsl:value-of select="@failures"/>) </th>
+			<tr><th style="width:30%">Test Cases (run: <xsl:value-of select="@tests"/> / skipped: <xsl:choose><xsl:when test="@disabled"><xsl:value-of select="@disabled"/></xsl:when><xsl:otherwise><xsl:value-of select="@skipped"/></xsl:otherwise></xsl:choose> / failed: <xsl:value-of select="@failures"/>) </th>
 				<th>Message</th>
 				<th style="width:1%">Result</th>
 			</tr>
@@ -151,9 +151,11 @@
 				<xsl:choose> 
 				<xsl:when test="failure[@message]">
  					<td id="failed">
+					This test case has been failed. FAILURE MESSAGE:
+					<br></br>
 							<xsl:for-each select="failure">
 										<xsl:if test="@message">
-									<xsl:value-of select="@message"/>
+									"<xsl:value-of select="@message"/>"
 								</xsl:if> 
 							</xsl:for-each>
 						</td>
