@@ -23,6 +23,12 @@
 					color: orange;
 					font-weight: bold;
 				}
+				td#failmessage {
+					color: red;
+				}
+				td#skipmessage {
+				color: orange;
+				}
 				b#passrate {
 					color: green;
 				}
@@ -83,6 +89,7 @@
 				}
 				.bordered td:first-child, .bordered th:first-child {
 					border-left: none;
+					width: 60%;
 				}
 				.bordered th:first-child {
 					-moz-border-radius: 6px 0 0 0;
@@ -93,6 +100,7 @@
 					-moz-border-radius: 0 6px 0 0;
 					-webkit-border-radius: 0 6px 0 0;
 					border-radius: 0 6px 0 0;
+					text-align: center;
 				}
 				.bordered th:only-child{
 					-moz-border-radius: 6px 6px 0 0;
@@ -102,12 +110,13 @@
 				.bordered tr:last-child td:first-child {
 					-moz-border-radius: 0 0 0 6px;
 					-webkit-border-radius: 0 0 0 6px;
-					border-radius: 0 0 0 6px;
+					border-radius: 0 0 0 6px;	
 				}
 				.bordered tr:last-child td:last-child {
 					-moz-border-radius: 0 0 6px 0;
 					-webkit-border-radius: 0 0 6px 0;
 					border-radius: 0 0 6px 0;
+					width: 5%;
 				}
 			</style>
 		</head>
@@ -137,7 +146,7 @@
 		</p>
 		<xsl:apply-templates/>
 	</xsl:template>
-
+	
 	<xsl:template match="testsuite">
 		<h2>Test Suite: <xsl:choose><xsl:when test="@name"><xsl:value-of select="@name"/></xsl:when><xsl:otherwise><xsl:value-of select="testcase/@classname"/></xsl:otherwise></xsl:choose></h2>
 		<table class="bordered">
@@ -150,7 +159,7 @@
 				<td><xsl:value-of select="@name"/></td> 
 				<xsl:choose> 
 				<xsl:when test="failure[@message]">
- 					<td id="failed">
+					<td id="failmessage">
 					This test case has been failed. FAILURE MESSAGE:
 					<br></br>
 							<xsl:for-each select="failure">
@@ -162,7 +171,7 @@
 						<td id="failed">FAIL</td>
 					</xsl:when>
 					<xsl:when test="@status='notrun'">
-					<td><b>This test case has been skipped</b></td> 
+					<td id="skipmessage">This test case has been skipped</td> 
 						<td id="skipped">SKIPPED</td>
 					</xsl:when>
 					<xsl:otherwise>
