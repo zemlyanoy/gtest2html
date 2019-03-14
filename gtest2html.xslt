@@ -6,8 +6,8 @@
 	<xsl:param name="JOB_NAME" />
 	<xsl:param name="BUILD_NUMBER" />
 	<xsl:param name="EXPECTED_NUM_TESTS" />
-	<xsl:param name="UPPER_TRHESHHOLD" />
-	<xsl:param name="LOWER_TRHESHHOLD" />
+	<xsl:param name="UPPER_THRESHOLD" />
+	<xsl:param name="LOWER_THRESHOLD" />
 	<xsl:output method="html" version="4.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/">
 		<html>
@@ -142,8 +142,8 @@
 			<b><xsl:value-of select="$skipped"/></b> test cases skipped.
 			General Execution time <b><xsl:value-of select="@time"/></b>, 
 			Success Rate: <xsl:choose>
-				<xsl:when test="$successrate &gt; $UPPER_TRHESHHOLD"><b id="passrate"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="passrate">OK</b></xsl:when>
-				<xsl:when test="$successrate &gt; $LOWER_TRHESHHOLD"><b id="lowrisk"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="lowrisk">OK</b></xsl:when>
+				<xsl:when test="$successrate &gt; $UPPER_THRESHOLD"><b id="passrate"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="passrate">OK</b></xsl:when>
+				<xsl:when test="$successrate &gt; $LOWER_THRESHOLD"><b id="lowrisk"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="lowrisk">OK</b></xsl:when>
 				<xsl:otherwise><b id="critical"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="critical">NOK</b></xsl:otherwise>
 			</xsl:choose>
 		</p>
