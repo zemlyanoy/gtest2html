@@ -142,9 +142,9 @@
 			<b><xsl:value-of select="$skipped"/></b> test cases skipped.
 			General Execution time <b><xsl:value-of select="@time"/></b>, 
 			Success Rate: <xsl:choose>
-				<xsl:when test="$successrate &gt; $UPPER_THRESHOLD"><b id="passrate"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="passrate">OK</b></xsl:when>
-				<xsl:when test="$successrate &gt; $LOWER_THRESHOLD"><b id="lowrisk"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="lowrisk">OK</b></xsl:when>
-				<xsl:otherwise><b id="critical"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="critical">NOK</b></xsl:otherwise>
+				<xsl:when test="$successrate &gt; $UPPER_THRESHOLD"><b id="passrate" title="passrate"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="passrate" title="passrate">OK</b></xsl:when>
+				<xsl:when test="$successrate &gt; $LOWER_THRESHOLD"><b id="lowrisk" title="passrate"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="lowrisk" title="passrate">OK</b></xsl:when>
+				<xsl:otherwise><b id="critical" title="passrate"><xsl:value-of select="$successrate"/>%</b>,&nbsp;General Success Status: <b id="critical" title="passrate">NOK</b></xsl:otherwise>
 			</xsl:choose>
 		</p>
 		<xsl:apply-templates/>
