@@ -134,8 +134,8 @@
 		<xsl:variable name="testsuite" select="count(testsuite)"/>
 		<xsl:variable name="successrate" select="format-number((@tests - ($skipped + @failures)) div $EXPECTED_NUM_TESTS*100,'##0.00')"/>
 		
-		<h1>General Test Report: <xsl:value-of select="$JOB_NAME"/> | build&nbsp;#<xsl:value-of select="$BUILD_NUMBER"/></h1>
-		<p>
+		<h1>General Test Report: <xsl:value-of select="$JOB_NAME"/> | build&nbsp;#<b title="buildnum"><xsl:value-of select="$BUILD_NUMBER"/></b></h1>
+		<p title="exec_details">
 			Expected: <b><xsl:value-of select="$EXPECTED_NUM_TESTS"/></b> / Executed <b><xsl:value-of select="@tests"/></b> test cases in
 			<b><xsl:value-of select="$testsuite"/></b> test suites, 
 			<b><xsl:value-of select="@failures"/></b> test cases failed,
